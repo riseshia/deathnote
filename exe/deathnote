@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "deathnote"
+
+if Deathnote.run(ARGV).empty?
+  exit 0
+else
+  exit 1
+end
