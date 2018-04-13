@@ -9,11 +9,11 @@ module Deathnote
   class << self
     def run(argv)
       options = parse_options(argv)
-      old_branch = Open3.popen3('git rev-parse --abbrev-ref HEAD') { |_i, o, _e, _t| o.read.chomp }
+      old_commit = Open3.popen3('git rev-parse --abbrev-ref HEAD') { |_i, o, _e, _t| o.read.chomp }
 
-      base_missing = DeadCodes.new(branch: options[:base_commit], options: options.deep_clone).run
-      pr_missing = DeadCodes.new(branch: options[:compare_commit], options: options.deep_clone).run
-      Open3.popen3("git checkout #{old_branch}")
+      base_missing = DeadCodes.new(commit: options[:base_commit], options: options.deep_clone).run
+      pr_missing = DeadCodes.new(commit: options[:compare_commit], options: options.deep_clone).run
+      Open3.popen3("git checkout #{old_commit}")
 
       pr_missing.
         reject { |unused, _location| base_missing.has_key?(unused) }.
@@ -56,13 +56,13 @@ module Deathnote
   end
 
   class DeadCodes
-    def initialize(branch:, options:)
-      @branch = branch
+    def initialize(commit:, options:)
+      @commit = commit
       @options = options
     end
 
     def run
-      Open3.popen3("git checkout #{@branch}")
+      Open3.popen3("git checkout #{@commit}")
       to_list(run_debride)
     end
 
