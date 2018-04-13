@@ -12,7 +12,7 @@ module Deathnote
       old_commit = Open3.popen3('git rev-parse --abbrev-ref HEAD') { |_i, o, _e, _t| o.read.chomp }
 
       base_missing = DeadCodes.new(commit: options[:past_commit], options: options.deep_clone).run
-      pr_missing = DeadCodes.new(commit: options[:compare_commit], options: options.deep_clone).run
+      pr_missing = DeadCodes.new(commit: options[:newer_commit], options: options.deep_clone).run
       Open3.popen3("git checkout #{old_commit}")
 
       pr_missing.
@@ -35,8 +35,8 @@ module Deathnote
           p past_commit
           options[:past_commit] = past_commit
         end
-        opts.on('-c', '--compare[commit hash]', 'Specify compare commit hash.') do |compare_commit|
-          options[:compare_commit] = compare_commit
+        opts.on('-n', '--newer-commit=[commit hash]', 'Specify newer commit hash.') do |newer_commit|
+          options[:newer_commit] = newer_commit
         end
         opts.on('-r', '--rails', 'Filter some rails call conversions.') do
           options[:rails] = true
