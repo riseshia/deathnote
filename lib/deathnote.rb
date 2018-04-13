@@ -9,16 +9,16 @@ module Deathnote
   class << self
     def run(argv)
       options = parse_options(argv)
-      old_commit = System.cmd('git rev-parse --abbrev-ref HEAD')
+      backup_commit = System.cmd('git rev-parse --abbrev-ref HEAD')
 
-      base_missing = DeadCodes.new(commit: options[:past_commit], options: options.deep_clone).run
-      pr_missing = DeadCodes.new(commit: options[:newer_commit], options: options.deep_clone).run
+      past_missing = DeadCodes.new(commit: options[:past_commit], options: options.deep_clone).run
+      newer_missing = DeadCodes.new(commit: options[:newer_commit], options: options.deep_clone).run
 
-      pr_missing.
-        reject { |unused, _location| base_missing.has_key?(unused) }.
+      newer_missing.
+        reject { |unused, _location| past_missing.has_key?(unused) }.
         each { |unused, location| puts "#{unused} #{location}" }
     ensure
-      System.cmd("git checkout #{old_commit}")
+      System.cmd("git checkout #{backup_commit}")
     end
 
     private
