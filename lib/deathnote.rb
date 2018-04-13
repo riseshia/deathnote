@@ -9,22 +9,26 @@ module Deathnote
   class << self
     def run(argv)
       options = parse_options(argv)
-      backup_commit = System.cmd('git rev-parse --abbrev-ref HEAD')
+      backup_commit = cmd('git rev-parse --abbrev-ref HEAD')
 
-      System.cmd("git checkout #{options[:past_commit]}")
+      cmd("git checkout #{options[:past_commit]}")
       past_missing = DeadCodes.new(options.deep_clone).run
 
-      System.cmd("git checkout #{options[:newer_commit]}")
+      cmd("git checkout #{options[:newer_commit]}")
       newer_missing = DeadCodes.new(options.deep_clone).run
 
       newer_missing.
         reject { |unused, _location| past_missing.has_key?(unused) }.
         each { |unused, location| puts "#{unused} #{location}" }
     ensure
-      System.cmd("git checkout #{backup_commit}")
+      cmd("git checkout #{backup_commit}")
     end
 
     private
+
+    def cmd(command)
+      Open3.popen3(command) { |_i, o, _e, _t| o.read.chomp }
+    end
 
     def parse_options(argv)
       options = {}
@@ -99,12 +103,6 @@ module Deathnote
       end
 
       unuseds
-    end
-  end
-
-  module System
-    def self.cmd(command)
-      Open3.popen3(command) { |_i, o, _e, _t| o.read.chomp }
     end
   end
 end
