@@ -39,11 +39,11 @@ module Deathnote
           puts opts
           exit
         end
-        opts.on('-p', '--past-commit=[commit hash]', 'Specify past commit hash.') do |past_commit|
+        opts.on('-p[commit hash]', '--past-commit=[commit hash]', 'Specify past commit hash.') do |past_commit|
           p past_commit
           options[:past_commit] = past_commit
         end
-        opts.on('-n', '--newer-commit=[commit hash]', 'Specify newer commit hash.') do |newer_commit|
+        opts.on('-n[commit hash]', '--newer-commit=[commit hash]', 'Specify newer commit hash.') do |newer_commit|
           options[:newer_commit] = newer_commit
         end
         opts.on('-r', '--rails', 'Filter some rails call conversions.') do
