@@ -11,8 +11,11 @@ module Deathnote
       options = parse_options(argv)
       backup_commit = System.cmd('git rev-parse --abbrev-ref HEAD')
 
-      past_missing = DeadCodes.new(commit: options[:past_commit], options: options.deep_clone).run
-      newer_missing = DeadCodes.new(commit: options[:newer_commit], options: options.deep_clone).run
+      System.cmd("git checkout #{options[:past_commit]}")
+      past_missing = DeadCodes.new(options.deep_clone).run
+
+      System.cmd("git checkout #{options[:newer_commit]}")
+      newer_missing = DeadCodes.new(options.deep_clone).run
 
       newer_missing.
         reject { |unused, _location| past_missing.has_key?(unused) }.
@@ -57,13 +60,11 @@ module Deathnote
   end
 
   class DeadCodes
-    def initialize(commit:, options:)
-      @commit = commit
+    def initialize(options)
       @options = options
     end
 
     def run
-      System.cmd("git checkout #{@commit}")
       to_list(run_debride)
     end
 
