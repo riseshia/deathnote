@@ -40,7 +40,6 @@ module Deathnote
           exit
         end
         opts.on('-p[commit hash]', '--past-commit=[commit hash]', 'Specify past commit hash.') do |past_commit|
-          p past_commit
           options[:past_commit] = past_commit
         end
         opts.on('-n[commit hash]', '--newer-commit=[commit hash]', 'Specify newer commit hash.') do |newer_commit|

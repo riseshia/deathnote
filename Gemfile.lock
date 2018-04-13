@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    deathnote (0.1.0)
+    deathnote (0.1.3)
       debride (~> 1.8)
 
 GEM
@@ -29,7 +29,7 @@ GEM
     rspec-support (3.7.1)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
-    sexp_processor (4.10.1)
+    sexp_processor (4.11.0)
 
 PLATFORMS
   ruby
