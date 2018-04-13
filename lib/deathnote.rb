@@ -48,8 +48,7 @@ module Deathnote
 
       options
     rescue OptionParser::InvalidOption => e
-      warn op.to_s
-      warn ""
+      warn "Fail to parse options."
       warn e.message
       exit 1
     end
