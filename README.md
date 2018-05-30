@@ -1,20 +1,20 @@
 # Deathnote
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/deathnote`. To experiment with that code, run `bin/console` for an interactive prompt.
+deathnote gem receive 2 commit hash and compare those dead code from each version of project code.
+This will be helpful if you have a lot false-positive result.
 
-TODO: Delete this and the text above, and describe your gem
+## Requirement
+
+deathnote assumes you are using git.
+It will use `git checkout` to switch to each revision.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'deathnote'
+gem 'deathnote', require: false
 ```
-
-And then execute:
-
-    $ bundle
 
 Or install it yourself as:
 
@@ -22,7 +22,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+Usage: deathnote [options] files_or_dirs
+    -h, --help                       Display this help.
+    -p, --past-commit=[commit hash]  Specify past commit hash.
+    -n, --newer-commit=[commit hash] Specify newer commit hash.
+    -r, --rails                      Filter some rails call conversions.
+    -e, --exclude=file1,file2,etc    Exclude files or directories in comma-separated list.
+```
 
 ## Development
 
@@ -32,7 +39,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/deathnote.
+Bug reports and pull requests are welcome on GitHub at https://github.com/riseshia/deathnote.
 
 ## License
 
