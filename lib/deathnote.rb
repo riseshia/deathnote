@@ -50,10 +50,10 @@ module Deathnote
         opts.on('-r', '--rails', 'Filter some rails call conversions.') do
           options[:rails] = true
         end
-        opts.on('-w', '--whitelist', 'Whitelist with separated by \n') do
+        opts.on('-w', '--whitelist=FILE', 'Whitelist with separated by \n') do
           options[:whitelist] = File.read(s).split(/\n+/) rescue []
         end
-        opts.on('-e', '--exclude=file1,file2,etc', Array, 'Exclude files or directories in comma-separated list.') do |list|
+        opts.on('-e', '--exclude=FILE1,FILE2,...', Array, 'Exclude files or directories in comma-separated list.') do |list|
           options[:exclude] = list
         end
       end.parse!

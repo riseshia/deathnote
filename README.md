@@ -30,8 +30,8 @@ Usage: deathnote [options] files_or_dirs
     -p, --past-commit=[commit hash]  Specify past commit hash.
     -n, --newer-commit=[commit hash] Specify newer commit hash.
     -r, --rails                      Filter some rails call conversions.
-    -w, --whitelist                  Whitelist with separated by \n
-    -e, --exclude=file1,file2,etc    Exclude files or directories in comma-separated list.
+    -w, --whitelist=FILE             Whitelist with separated by \n
+    -e, --exclude=FILE1,FILE2,...    Exclude files or directories in comma-separated list.
 ```
 
 ## Development
