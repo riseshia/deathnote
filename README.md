@@ -3,6 +3,8 @@
 deathnote gem receive 2 commit hash and compare those dead code from each version of project code.
 This will be helpful if you have a lot false-positive result.
 
+You may get better understanding with [this slide](https://speakerdeck.com/riseshia/find-out-potential-dead-codes-from-diff).
+
 ## Requirement
 
 deathnote assumes you are using git.
@@ -28,6 +30,7 @@ Usage: deathnote [options] files_or_dirs
     -p, --past-commit=[commit hash]  Specify past commit hash.
     -n, --newer-commit=[commit hash] Specify newer commit hash.
     -r, --rails                      Filter some rails call conversions.
+    -w, --whitelist                  Whitelist with separated by \n
     -e, --exclude=file1,file2,etc    Exclude files or directories in comma-separated list.
 ```
 
