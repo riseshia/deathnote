@@ -31,7 +31,9 @@ module Deathnote
     end
 
     def parse_options(argv)
-      options = {}
+      options = {
+        whitelist: []
+      }
       OptionParser.new do |opts|
         opts.banner = 'Usage: deathnote [options] files_or_dirs'
 
@@ -47,6 +49,9 @@ module Deathnote
         end
         opts.on('-r', '--rails', 'Filter some rails call conversions.') do
           options[:rails] = true
+        end
+        opts.on('-w', '--whitelist', 'Whitelist with separated by \n') do
+          options[:whitelist] = File.read(s).split(/\n+/) rescue []
         end
         opts.on('-e', '--exclude=file1,file2,etc', Array, 'Exclude files or directories in comma-separated list.') do |list|
           options[:exclude] = list
